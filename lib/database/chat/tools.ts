@@ -4,6 +4,7 @@ import {
   calculateGeometryArea,
   checkGeometryAreaIsLessThanThreshold,
 } from "@/features/maps/utils/geometry-utils";
+import { openai } from "@ai-sdk/openai";
 import { azure } from "@ai-sdk/azure";
 import { convertToCoreMessages, generateText } from "ai";
 import { NextResponse } from "next/server";
@@ -291,7 +292,8 @@ export async function draftReport(args: any) {
     const conversationContext = [...relevantMessages, reportPrompt];
 
     const reportResponse = await generateText({
-      model: azure("gpt-4o"),
+      model: openai("gpt-4o"),
+      // model: azure("gpt-4o"),
       messages: convertToCoreMessages(conversationContext),
       tools: {}, // Empty tools object since we don't need tools for report generation
     });
