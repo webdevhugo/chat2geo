@@ -438,6 +438,12 @@ CREATE OR REPLACE TRIGGER "user_roles_after_insert" AFTER INSERT ON "public"."us
 
 
 
+CREATE OR REPLACE TRIGGER on_auth_user_created
+  AFTER INSERT ON auth.users
+  FOR EACH ROW EXECUTE PROCEDURE public.handle_new_auth_user();
+
+
+
 ALTER TABLE ONLY "public"."chats"
     ADD CONSTRAINT "chats_user_id_fkey" FOREIGN KEY ("userId") REFERENCES "public"."user_roles"("id") ON DELETE CASCADE;
 
