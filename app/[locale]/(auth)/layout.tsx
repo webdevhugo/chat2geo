@@ -23,14 +23,14 @@ export const metadata = {
   description: "Login to access AI-powered geospatial analytics",
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
   params,
 }: Readonly<{
   children: React.ReactNode;
   params: { locale: string }
 }>) {
-  const { locale } = await params;
+  const { locale } = params;
   return (
     <html lang={locale} suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} font-sans`}>

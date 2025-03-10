@@ -368,5 +368,185 @@ export default {
                 pickColor: "Pick Color"
             },
         }
+    },
+    legal: {
+        privacyPolicy: {
+            title: "Privacy Policy",
+            effectiveDate: "Effective Date: {date}",
+            lastUpdated: "Last Updated: {date}",
+            sections: {
+                intro: "Your privacy is important to us. This Privacy Policy explains how we collect, use, share, and protect your personal information when you use the Chat2Geo platform (\"the Service\").",
+                infoCollect: {
+                    title: "1. Information We Collect",
+                    personal: {
+                        title: "1.1 Personal Information",
+                        content: "We may collect personal information such as your name, email address, and any additional information you provide when you create an account or use the Service.\\n\\nNote: We do not record or collect IP addresses."
+                    },
+                    uploaded: {
+                        title: "1.2 Uploaded Content",
+                        content: "We store the content you upload to the Service (e.g., text data, vector files, or documents) to provide you with geospatial analyses and related features. This includes data processed in your chats and any documents you integrate with the Service."
+                    },
+                    interaction: {
+                        title: "1.3 Interaction Data",
+                        content: "We may collect basic information about how you navigate or interact with the Service (e.g., feature usage, timestamps of actions) solely for improving user experience and maintaining platform stability. We do not collect IP addresses or other network identifiers."
+                    }
+                },
+                usage: {
+                    title: "2. How We Use Your Information",
+                    service: {
+                        title: "2.1 Providing the Service",
+                        content: "We use your information exclusively to operate and maintain the Service, including running analyses, generating reports, and displaying results for your use. We do not share or sell your data to any third party for their own use."
+                    },
+                    improvement: {
+                        title: "2.2 Improvement and Development",
+                        content: "We may use aggregated or anonymized information about overall feature usage for research and development to enhance and refine our services. This data will not identify you or your specific User Data."
+                    },
+                    communication: {
+                        title: "2.3 Communication",
+                        content: "We may use your contact information to send you administrative or technical notices, updates, and other information directly relevant to your use of the Service."
+                    }
+                },
+                sharing: {
+                    title: "3. Sharing and Disclosure",
+                    providers: {
+                        title: "3.1 Limited Disclosure to Service Providers",
+                        content: "We may share minimal information with trusted service providers who help us operate and improve the Service. Such providers are bound by confidentiality and are prohibited from using the information for any purpose other than providing services to us."
+                    },
+                    legal: {
+                        title: "3.2 Legal Requirements",
+                        content: "We may disclose your information if required by law or in response to valid legal processes, such as a subpoena or court order."
+                    },
+                    business: {
+                        title: "3.3 Business Transfers",
+                        content: "In the event of a merger, acquisition, or sale of assets, your information may be transferred as part of that transaction. We will notify you if any such transfer occurs."
+                    }
+                },
+                retention: {
+                    title: "4. Data Retention and Deletion",
+                    storage: {
+                        title: "4.1 Storage Period",
+                        content: "We retain your data as long as you have an active account or as needed to provide you with the Service. For beta testers, data and history may be removed upon completion of the beta period, as stated in our Terms of Service."
+                    },
+                    deletion: {
+                        title: "4.2 Deletion Requests",
+                        content: "You can delete your data at any time by following the instructions within the Service or by contacting us directly. Once deleted, your data may not be recoverable."
+                    }
+                },
+                security: {
+                    title: "5. Security Measures",
+                    content: "We take reasonable measures to protect your information from unauthorized access, alteration, disclosure, or destruction. However, no method of data transmission or storage is 100% secure, and we cannot guarantee absolute security."
+                },
+                children: {
+                    title: "6. Children\'s Privacy",
+                    content: "Because this Service provides specialized geospatial analysis tools intended for professional or academic use, it is not marketed toward or intended for use by individuals under the age of 18. We do not knowingly collect personal information from minors. If you are a parent or guardian and believe we may have inadvertently collected information from a minor, please contact us immediately."
+                },
+                changes: {
+                    title: "7. Changes to This Privacy Policy",
+                    content: "We may update this Privacy Policy from time to time to reflect changes in our practices. We will notify you by updating the \"Effective Date\" at the top of this page. Your continued use of the Service after any changes indicate your acceptance of the new Privacy Policy."
+                }
+            }
+        },
+        termsOfService: {
+            title: "Terms of Service",
+            effectiveDate: "Effective Date: {date}",
+            lastUpdated: "Last Updated: {date}",
+            sections: {
+                intro: "Welcome to the Chat2Geo platform (\"the Service\"). By accessing or using the Service, you agree to be bound by these Terms of Service (\"Terms\"). If you do not agree with any part of these Terms, you must not use the Service.",
+                beta: {
+                    title: "1. Beta Testing Program",
+                    limitedAccess: {
+                        title: "1.1 Limited Access",
+                        content: "Access to the beta version of the Service is granted by selection only. Each license is personal to the individual user and is non-transferable."
+                    },
+                    features: {
+                        title: "1.2 Beta Features",
+                        content: "Because this is a beta version, certain features may be in development or subject to change without notice. The Service may not operate as intended, and you may encounter bugs, errors, or other issues."
+                    },
+                    feedback: {
+                        title: "1.3 Feedback",
+                        content: "We welcome feedback about your experience with the Service. You grant us a non-exclusive, perpetual, irrevocable, royalty-free license to use, modify, and incorporate any feedback you provide into our products or services."
+                    }
+                },
+                accounts: {
+                    title: "2. User Accounts",
+                    creation: {
+                        title: "2.1 Account Creation",
+                        content: "To use certain features of the Service, you may be required to create an account. You agree to provide accurate, current, and complete information during the registration process and to update such information to keep it accurate and complete."
+                    },
+                    security: {
+                        title: "2.2 Account Security",
+                        content: "You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account. You must immediately notify us of any unauthorized use of your account or any other breach of security."
+                    }
+                },
+                userData: {
+                    title: "3. User Content and Data",
+                    storage: {
+                        title: "3.1 Data Storage",
+                        content: "Your chats, analyses, and documents uploaded to the Service (\"User Data\") are stored in our systems so that you can review or reload them at a later time."
+                    },
+                    ownership: {
+                        title: "3.2 Ownership of User Data",
+                        content: "You retain all ownership rights to content you upload. By uploading content to the Service, you grant us a limited, non-exclusive right to store, reproduce, and process your content solely for the purpose of providing the Service to you."
+                    },
+                    exclusiveUse: {
+                        title: "3.3 Exclusive Use",
+                        content: "Your session history and any documents you upload are only used for your own purposes, namely to facilitate and enhance the geospatial analyses you conduct. We do not share or use your content for any other purpose."
+                    }
+                },
+                license: {
+                    title: "4. License and Usage",
+                    grant: {
+                        title: "4.1 License Grant",
+                        content: "Subject to these Terms, we grant you a limited, non-transferable, non-exclusive, revocable license to use the Service for lawful purposes."
+                    },
+                    prohibited: {
+                        title: "4.2 Prohibited Conduct",
+                        content: "You agree not to use the Service to:",
+                        item1: "Violate any local, state, national, or international law or regulation.",
+                        item2: "Infringe or misappropriate the intellectual property rights of any third party.",
+                        item3: "Upload harmful or disruptive materials, such as malware or viruses.",
+                        item4: "Perform analyses or operations you are not authorized to execute."
+                    }
+                },
+                intellectualProperty: {
+                    title: "5. Intellectual Property",
+                    content: "All intellectual property rights in the Service, including any trademarks, logos, designs, or underlying technology, are owned or licensed by us. Nothing in these Terms grants you any right, title, or interest in our intellectual property except as expressly set forth herein."
+                },
+                disclaimers: {
+                    title: "6. Disclaimers",
+                    beta: {
+                        title: "6.1 Beta Disclaimer",
+                        content: "The Service is provided on an \"as is\" and \"as available\" basis. As this is a beta version, no warranties or guarantees of performance, reliability, or availability are provided."
+                    },
+                    warranty: {
+                        title: "6.2 No Warranty",
+                        content: "We disclaim any and all warranties, express or implied, including but not limited to merchantability, fitness for a particular purpose, and non-infringement."
+                    }
+                },
+                liability: {
+                    title: "7. Limitation of Liability",
+                    content: "To the maximum extent permitted by law, we shall not be liable for any indirect, incidental, special, consequential, or exemplary damages arising out of or in connection with the use or inability to use the Service, even if we have been advised of the possibility of such damages."
+                },
+                termination: {
+                    title: "8. Termination and Data Removal",
+                    terminationPolicy: {
+                        title: "8.1 Termination",
+                        content: "We may terminate or suspend access to the Service at any time without prior notice or liability for any reason. You may also discontinue use of the Service at any time."
+                    },
+                    dataRemoval: {
+                        title: "8.2 Data Removal",
+                        content: "Upon the end of your beta testing, all of your data and history will be permanently removed if not already deleted by you, and this removal is irreversible."
+                    }
+                },
+                governing: {
+                    title: "9. Governing Law and Dispute Resolution",
+                    content: "These Terms shall be governed by and construed in accordance with the laws of the jurisdiction in which our company is registered, without regard to its conflict of law provisions. Any dispute arising under these Terms shall be resolved exclusively in the courts within that jurisdiction."
+                },
+                changes: {
+                    title: "10. Changes to the Terms",
+                    content: "We reserve the right to modify these Terms at any time. If we make material changes, we will notify you by updating the \"Effective Date\" at the top of this page. Your continued use of the Service after such changes constitute acceptance of the modified Terms."
+                }
+            }
+        }
     }
 } as const
