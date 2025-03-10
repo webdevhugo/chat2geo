@@ -23,7 +23,7 @@ export const metadata = {
   description: "Login to access AI-powered geospatial analytics",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
   params: { locale },
 }: {
