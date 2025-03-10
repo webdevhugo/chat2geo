@@ -1,5 +1,6 @@
 import { Separator } from "@/components/ui/separator";
 import React from "react";
+import { useScopedI18n } from "@/locales/client";
 
 interface MapBadgeProps {
   type?: "drawing" | "query_layer";
@@ -9,19 +10,20 @@ interface MapBadgeProps {
 
 const MapBadge: React.FC<MapBadgeProps> = ({
   type = "drawing",
-  heading = "ROI Drawing Mode",
+  heading,
   secondaryText,
 }) => {
+  const t = useScopedI18n("map.badge");
+  const defaultHeading = type === "drawing" ? t('roiDrawingMode') : t('queryLayer');
   return (
     <>
-      {heading && (
+      {(heading || defaultHeading) && (
         <div className="absolute top-2 left-1/2 -translate-x-1/2 z-[5000]">
           <div
-            className={`${
-              type === "drawing"
+            className={`${type === "drawing"
                 ? "bg-warning text-gray-900"
                 : "bg-info text-white"
-            } prose prose-sm text-center text-md font-bold w-full h-full p-2 rounded-lg text-nowrap`}
+              } prose prose-sm text-center text-md font-bold w-full h-full p-2 rounded-lg text-nowrap`}
             style={{
               textShadow:
                 type === "drawing"
@@ -30,7 +32,7 @@ const MapBadge: React.FC<MapBadgeProps> = ({
             }}
           >
             {/* Primary text */}
-            {heading}
+            {heading || defaultHeading}
 
             {/* Secondary text (renders only if secondaryText is provided) */}
             {secondaryText && (

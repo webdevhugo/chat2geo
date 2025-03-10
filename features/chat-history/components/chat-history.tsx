@@ -10,6 +10,7 @@ import useToastMessageStore from "@/stores/use-toast-message-store";
 import { deleteChatById } from "@/lib/database/chat/queries";
 import ConfirmationModal from "@/components/ui/confirmation-modal";
 import { Trash2 } from "lucide-react";
+import { useScopedI18n } from "@/locales/client";
 
 interface ChatHistory {
   chatId: string;
@@ -18,6 +19,7 @@ interface ChatHistory {
 }
 
 export default function ChatHistory() {
+  const t = useScopedI18n("chatHistory");
   const isSidebarCollapsed = useButtonsStore(
     (state) => state.isSidebarCollapsed
   );
@@ -90,9 +92,9 @@ export default function ChatHistory() {
       );
       // Clear selection
       setSelectedChatIds([]);
-      setToastMessage("Selected chats deleted successfully", "success");
+      setToastMessage(t('messages.deleteSuccess'), "success");
     } catch (error) {
-      setToastMessage("Something went wrong while deleting chats", "error");
+      setToastMessage(t('messages.deleteError'), "error");
     } finally {
       setIsConfirmMultiDeleteOpen(false);
       setIsDeleting(false);
@@ -113,16 +115,16 @@ export default function ChatHistory() {
     >
       <div className="container mx-auto py-16 max-w-6xl">
         <h1 className="text-4xl font-bold leading-tight tracking-tight">
-          Session History
+          {t('title')}
         </h1>
         <p className="mt-2 font-semibold text-muted-foreground">
-          Review and load past chat sessions
+          {t('description')}
         </p>
 
         <Separator className="mt-3 mb-6" />
 
         {chats.length === 0 ? (
-          <p className="text-center text-muted-foreground">No chats found</p>
+          <p className="text-center text-muted-foreground">{t('empty')}</p>
         ) : (
           <ChatHistoryTable
             chats={chats}
@@ -138,9 +140,10 @@ export default function ChatHistory() {
         {/* Confirmation Modal for multi-delete */}
         <ConfirmationModal
           isOpen={isConfirmMultiDeleteOpen}
-          title="Confirm Deletion"
-          message="Are you sure you want to delete all selected chats? This action cannot be undone."
-          confirmText="Delete"
+          title={t('deleteConfirm.title')}
+          message={t('deleteConfirm.message')}
+          cancelText={t('deleteConfirm.cancelButton')}
+          confirmText={t('deleteConfirm.confirmButton')}
           confirmButtonClassName="bg-red-500 hover:bg-red-600"
           onCancel={() => setIsConfirmMultiDeleteOpen(false)}
           onConfirm={handleDeleteSelectedChats}

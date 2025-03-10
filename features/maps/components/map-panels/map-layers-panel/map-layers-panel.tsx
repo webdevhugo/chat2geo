@@ -37,6 +37,7 @@ import {
 import { Button, buttonVariants } from "@/components/ui/button";
 import { HexColorPicker } from "react-colorful";
 import { cn } from "@/lib/utils";
+import { useScopedI18n } from "@/locales/client";
 
 // ---- stores ----
 import useMapDisplayStore from "@/features/maps/stores/use-map-display-store";
@@ -87,6 +88,7 @@ function DraggablePortal({
 }
 
 export default function MapLayersPanel() {
+  const t = useScopedI18n("mapLayers.panel");
   const isMapLayersPanelOpen = useMapDisplayStore(
     (state) => state.isMapLayersPanelOpen
   );
@@ -205,7 +207,7 @@ export default function MapLayersPanel() {
       <div className="flex flex-col w-full h-full">
         {/* Panel Header */}
         <div className="flex items-center justify-between p-4 border-b border-gray-200">
-          <h2 className="text-sm font-semibold text-foreground">Map Layers</h2>
+          <h2 className="text-sm font-semibold text-foreground">{t('title')}</h2>
           <Button variant="ghost" size="icon" onClick={toggleMapLayersPanel}>
             <ArrowLeft className="w-4 h-4" />
           </Button>
@@ -311,7 +313,7 @@ export default function MapLayersPanel() {
                                       className="text-red-600"
                                     >
                                       <Trash2 className="h-4 w-4" />
-                                      Delete
+                                      {t('actions.delete')}
                                     </DropdownMenuItem>
                                     <DropdownMenuSeparator />
 
@@ -336,7 +338,7 @@ export default function MapLayersPanel() {
                                               }}
                                             >
                                               <Palette className="h-4 w-4 mr-2" />
-                                              Pick Color
+                                              {t('actions.pickColor')}
                                             </div>
                                           </PopoverTrigger>
 

@@ -1,5 +1,6 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
+import { useScopedI18n } from "@/locales/client";
 
 interface IntegrationActionsProps {
   serviceId: ServiceType;
@@ -14,6 +15,7 @@ export const IntegrationActions: React.FC<IntegrationActionsProps> = ({
   onConnect,
   onConfigure,
 }) => {
+  const t = useScopedI18n("integrations.actions");
   return (
     <div className="flex items-center">
       {!isConnected && (
@@ -22,7 +24,7 @@ export const IntegrationActions: React.FC<IntegrationActionsProps> = ({
           size="sm"
           onClick={() => onConnect(serviceId)}
         >
-          Connect
+          {t('connect')}
         </Button>
       )}
     </div>

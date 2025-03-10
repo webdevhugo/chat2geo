@@ -7,6 +7,7 @@ import {
   IconPlus,
   IconTrash,
 } from "@tabler/icons-react";
+import { useScopedI18n } from "@/locales/client";
 
 interface SidebarProps {
   folders: any[];
@@ -27,12 +28,13 @@ const Sidebar: React.FC<SidebarProps> = ({
   menuOpenFolderId,
   setMenuOpenFolderId,
 }) => {
+  const t = useScopedI18n("knowledgeBase.sidebar");
   return (
     <aside className="w-64 bg-secondary border-r border-stone-300 dark:border-stone-600 shadow-md pt-3">
       <div className="flex justify-center px-4 py-4 border-b border-gray-300 dark:border-stone-600">
         <Button onClick={() => setIsAddGroupModalOpen(true)}>
           <IconPlus size={16} stroke={2} className="mr-2" />
-          Add Group
+          {t('addGroup')}
         </Button>
       </div>
 
@@ -41,11 +43,10 @@ const Sidebar: React.FC<SidebarProps> = ({
           {folders.map((folder: any) => (
             <li
               key={folder.id}
-              className={`group flex items-center justify-between hover:bg-muted rounded-md px-3 py-2 cursor-pointer text-foreground ${
-                currentFolder && currentFolder.id === folder.id
+              className={`group flex items-center justify-between hover:bg-muted rounded-md px-3 py-2 cursor-pointer text-foreground ${currentFolder && currentFolder.id === folder.id
                   ? "bg-accent"
                   : ""
-              }`}
+                }`}
               onClick={() => setCurrentFolder(folder)}
             >
               <div className="flex items-center">
@@ -82,7 +83,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                         }}
                       >
                         <IconPencil size={16} className="mr-2" />
-                        Update
+                        {t('actions.update')}
                       </button>
 
                       <button
@@ -94,7 +95,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                         }}
                       >
                         <IconTrash size={16} className="mr-2" />
-                        Delete
+                        {t('actions.delete')}
                       </button>
                     </div>
                   )}

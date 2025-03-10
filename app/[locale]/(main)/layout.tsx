@@ -8,6 +8,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { getUserProfile } from "./actions/get-user-profile";
 import ClientWrapper from "@/components/client-wrapper";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { I18nProviderClient } from '@/locales/client'
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -28,9 +29,12 @@ export const metadata = {
 
 export default async function RootLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode;
+  params: { locale: string }
 }>) {
+  const { locale } = await params;
   const supabase = await createClient();
   const { data: authResults, error } = await supabase.auth.getUser();
   if (error || !authResults?.user) {
@@ -38,12 +42,14 @@ export default async function RootLayout({
   }
   const userProfile = await getUserProfile();
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning>
       <TooltipProvider>
         <body
           className={`${geistSans.variable} ${geistMono.variable} font-sans`}
         >
-          <ClientWrapper userProfile={userProfile}>{children}</ClientWrapper>
+          <I18nProviderClient locale={locale}>
+            <ClientWrapper userProfile={userProfile}>{children}</ClientWrapper>
+          </I18nProviderClient>
           <Analytics />
         </body>
       </TooltipProvider>

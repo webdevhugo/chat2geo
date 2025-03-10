@@ -1,5 +1,6 @@
 import React from "react";
 import { X } from "lucide-react";
+import { useScopedI18n } from "@/locales/client";
 
 interface EditDocumentModalProps {
   editDocumentId: any;
@@ -18,6 +19,7 @@ const EditDocumentModal: React.FC<EditDocumentModalProps> = ({
   documents,
   setDocuments,
 }) => {
+  const t = useScopedI18n("knowledgeBase.editDocument");
   if (!editDocumentId) {
     return null;
   }
@@ -27,10 +29,10 @@ const EditDocumentModal: React.FC<EditDocumentModalProps> = ({
       documents.map((doc: any) =>
         doc.id === editDocumentId
           ? {
-              ...doc,
-              name: editedDocumentName,
-              lastEdited: new Date().toISOString(),
-            }
+            ...doc,
+            name: editedDocumentName,
+            lastEdited: new Date().toISOString(),
+          }
           : doc
       )
     );
@@ -47,7 +49,7 @@ const EditDocumentModal: React.FC<EditDocumentModalProps> = ({
           <X size={20} />
         </button>
         <h2 className="text-lg font-bold text-gray-800 mb-4">
-          Edit Document Name
+          {t('title')}
         </h2>
         <input
           type="text"
@@ -60,13 +62,13 @@ const EditDocumentModal: React.FC<EditDocumentModalProps> = ({
             className="px-3 py-1 text-gray-700 rounded hover:underline transition"
             onClick={() => setEditDocumentId(null)}
           >
-            Cancel
+            {t('buttons.cancel')}
           </button>
           <button
             className="px-2 py-1 text-sm bg-blue-500 text-white rounded hover:bg-blue-600 transition"
             onClick={handleSave}
           >
-            Save
+            {t('buttons.save')}
           </button>
         </div>
       </div>

@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useScopedI18n } from "@/locales/client";
 
 interface AddGroupModalProps {
   isOpen: boolean;
@@ -24,29 +25,30 @@ const AddGroupModal: React.FC<AddGroupModalProps> = ({
   setNewGroupName,
   handleAddGroup,
 }) => {
+  const t = useScopedI18n("knowledgeBase.addGroup");
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[400px]">
         <DialogHeader>
-          <DialogTitle>Add New Group</DialogTitle>
+          <DialogTitle>{t('title')}</DialogTitle>
         </DialogHeader>
 
         <Input
-          placeholder="Enter group name"
+          placeholder={t('placeholder')}
           value={newGroupName}
           onChange={(e) => setNewGroupName(e.target.value)}
         />
 
         <DialogFooter className="gap-2">
           <Button variant="ghost" size="sm" onClick={onClose}>
-            Cancel
+            {t('buttons.cancel')}
           </Button>
           <Button
             onClick={handleAddGroup}
             className="bg-green-500 hover:bg-green-600"
             size="sm"
           >
-            Add Group
+            {t('buttons.add')}
           </Button>
         </DialogFooter>
       </DialogContent>

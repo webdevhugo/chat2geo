@@ -16,6 +16,7 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { IconDotsVertical, IconPencil, IconTrash } from "@tabler/icons-react";
+import { useScopedI18n } from "@/locales/client";
 
 interface DocumentsTableProps {
   documents: any[];
@@ -40,21 +41,22 @@ const DocumentsTable: React.FC<DocumentsTableProps> = ({
   handleDeleteClick,
   formatDbDate,
 }) => {
+  const t = useScopedI18n("knowledgeBase.documentsTable");
   return (
     <Table>
       <TableHeader className="sticky top-0">
         <TableRow>
           <TableHead className="text-sm font-bold text-muted-foreground">
-            Name
+            {t('columns.name')}
           </TableHead>
           <TableHead className="text-sm font-bold text-muted-foreground text-center">
-            Owner
+            {t('columns.owner')}
           </TableHead>
           <TableHead className="text-sm font-bold text-muted-foreground text-center">
-            Pages
+            {t('columns.pages')}
           </TableHead>
           <TableHead className="text-sm font-bold text-muted-foreground text-center">
-            Last Edited
+            {t('columns.lastEdited')}
           </TableHead>
           <TableHead className="text-sm font-bold text-muted-foreground text-center"></TableHead>
         </TableRow>
@@ -122,7 +124,7 @@ const DocumentsTable: React.FC<DocumentsTableProps> = ({
                     className="flex items-center text-red-600 focus:text-red-600"
                   >
                     <IconTrash className="mr-2 h-4 w-4" />
-                    Delete
+                    {t('actions.delete')}
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -136,7 +138,7 @@ const DocumentsTable: React.FC<DocumentsTableProps> = ({
               colSpan={5}
               className="text-center text-muted-foreground"
             >
-              No documents found.
+              {t('empty')}
             </TableCell>
           </TableRow>
         )}

@@ -5,10 +5,11 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, FormEvent, useTransition } from "react";
 
-import { login } from "@/app/(auth)/login/actions";
+import { login } from "@/app/[locale]/(auth)/login/actions";
 import { useUserStore } from "@/stores/use-user-profile-store";
 import PrivacyPolicy from "@/components/notices/privacy-policy";
 import TermsOfService from "@/components/notices/terms-of-services";
+import { useScopedI18n } from '@/locales/client'
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -22,6 +23,7 @@ export default function Login() {
   const { setUserData } = useUserStore();
   const [openTerms, setOpenTerms] = useState(false);
   const [openPrivacy, setOpenPrivacy] = useState(false);
+  const t = useScopedI18n('login')
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -64,8 +66,7 @@ export default function Login() {
           <div className="relative z-20 mt-auto">
             <blockquote className="space-y-2">
               <p className="text-lg">
-                Let powerful AI solutions help you better address various
-                environmental challenges.
+                {t('testimonial')}
               </p>
             </blockquote>
           </div>
@@ -76,22 +77,22 @@ export default function Login() {
           <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
             <div className="flex flex-col space-y-2 text-center">
               <h1 className="text-2xl font-semibold tracking-tight">
-                Sign in to your account
+                {t('title')}
               </h1>
               <p className="text-sm text-muted-foreground">
-                Enter your credentials below
+                {t('subtitle')}
               </p>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">
               {/* Email Field */}
               <div className="flex flex-col space-y-1">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email">{t('email')}</Label>
                 <Input
                   id="email"
                   name="email"
                   type="email"
-                  placeholder="name@company.com"
+                  placeholder={t('emailPlaceholder')}
                   autoComplete="email"
                   required
                 />
@@ -99,12 +100,12 @@ export default function Login() {
 
               {/* Password Field */}
               <div className="flex flex-col space-y-1">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password">{t('password')}</Label>
                 <Input
                   id="password"
                   name="password"
                   type="password"
-                  placeholder="••••••••"
+                  placeholder={t('passwordPlaceholder')}
                   autoComplete="current-password"
                   required
                 />
@@ -113,7 +114,7 @@ export default function Login() {
               {/* Error Alert */}
               {error && (
                 <p className="text-destructive text-sm">
-                  <strong>Error:</strong> {error}
+                  <strong>{t('errorLabel')}</strong> {error}
                 </p>
               )}
 
@@ -124,24 +125,24 @@ export default function Login() {
                 className="w-full"
               >
                 {(loading || isPending) && <Loader2 className="animate-spin" />}
-                Sign in
+                {t('signInButton')}
               </Button>
             </form>
 
             <p className="px-8 text-center text-sm text-muted-foreground">
-              By clicking continue, you agree to our{" "}
+              {t('termsText')}{" "}
               <button
                 className="underline underline-offset-4 hover:text-primary"
                 onClick={() => setOpenTerms(true)}
               >
-                Terms of Service
+                {t('termsLink')}
               </button>{" "}
-              and{" "}
+              {t('andText')}{" "}
               <button
                 className="underline underline-offset-4 hover:text-primary"
                 onClick={() => setOpenPrivacy(true)}
               >
-                Privacy Policy
+                {t('privacyLink')}
               </button>
               .
             </p>

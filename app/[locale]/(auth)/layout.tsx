@@ -4,6 +4,7 @@ import { Toaster } from "react-hot-toast";
 import ToastMessage from "@/features/ui/toast-message";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Analytics } from "@vercel/analytics/next";
+import { I18nProviderClient } from '@/locales/client'
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -22,24 +23,29 @@ export const metadata = {
   description: "Login to access AI-powered geospatial analytics",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode;
+  params: { locale: string }
 }>) {
+  const { locale } = await params;
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} font-sans`}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Toaster />
-          <ToastMessage />
-          {children}
-        </ThemeProvider>
+        <I18nProviderClient locale={locale}>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="light"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Toaster />
+            <ToastMessage />
+            {children}
+          </ThemeProvider>
+        </I18nProviderClient>
         <Analytics />
       </body>
     </html>

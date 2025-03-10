@@ -16,6 +16,7 @@ import {
   getCommandRendererSlashMenuMapLayersRenderer,
   COMMAND_REG,
 } from "@/features/chat/utils/slash-menu-utils";
+import { useScopedI18n } from "@/locales/client";
 
 // Components
 import ChatInputDropzone from "./chat-input-dropzone";
@@ -42,6 +43,7 @@ const ChatInputBox = memo<ChatInputBoxProps>(
     handleKeyDown,
     isStreaming,
   }) => {
+    const t = useScopedI18n("chatInput");
     const textareaRef = useRef<RichTextareaHandle>(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -125,7 +127,7 @@ const ChatInputBox = memo<ChatInputBoxProps>(
           <input {...getInputProps()} />
           <RichTextarea
             ref={textareaRef}
-            placeholder="Type a message..."
+            placeholder={t('placeholder')}
             value={inputValue}
             onChange={handleInputChange}
             autoHeight={true}

@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 // Lucide icons
 import { X, Send, Loader2 } from "lucide-react";
-
+import { useScopedI18n } from "@/locales/client";
 import useToastMessageStore from "@/stores/use-toast-message-store";
 
 interface FeedbackFloatingProps {
@@ -22,6 +22,7 @@ interface FeedbackFloatingProps {
 }
 
 export function FeedbackFloating({ isOpen, onClose }: FeedbackFloatingProps) {
+  const t = useScopedI18n("feedback");
   const [feedback, setFeedback] = useState("");
 
   // Track submit/loading state
@@ -47,15 +48,15 @@ export function FeedbackFloating({ isOpen, onClose }: FeedbackFloatingProps) {
       });
 
       if (res.ok) {
-        setToastMessage("Thanks for your feedback!", "success");
+        setToastMessage(t('messages.success'), "success");
         setFeedback("");
         onClose();
       } else {
-        setToastMessage("Something went wrong. Please try again!", "error");
+        setToastMessage(t('messages.error.tryAgain'), "error");
       }
     } catch (err) {
       console.error(err);
-      setToastMessage("Error sending feedback.", "error");
+      setToastMessage(t('messages.error.default'), "error");
     } finally {
       setIsSubmitting(false);
     }
@@ -88,7 +89,7 @@ export function FeedbackFloating({ isOpen, onClose }: FeedbackFloatingProps) {
           "
         >
           <div className="flex w-full items-center justify-between cursor-move">
-            <CardTitle>Feedback</CardTitle>
+            <CardTitle>{t('title')}</CardTitle>
             <Button
               variant="ghost"
               size="icon"
@@ -102,7 +103,7 @@ export function FeedbackFloating({ isOpen, onClose }: FeedbackFloatingProps) {
 
         <CardContent className="flex-1 p-4 overflow-hidden flex flex-col min-h-0">
           <Textarea
-            placeholder="Please let use know your requests or feedback, or any issues/bugs you came across while using the app."
+            placeholder={t('placeholder')}
             value={feedback}
             onChange={(e) => setFeedback(e.target.value)}
             className="
@@ -125,7 +126,7 @@ export function FeedbackFloating({ isOpen, onClose }: FeedbackFloatingProps) {
               // Normal send icon
               <Send size={16} />
             )}
-            {isSubmitting ? "Sending..." : "Submit"}
+            {isSubmitting ? t('sending') : t('submit')}
           </Button>
         </CardFooter>
       </Card>

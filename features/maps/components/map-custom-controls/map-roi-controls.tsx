@@ -5,6 +5,7 @@ import AddressSearch from "../address-search";
 import { Button } from "@/components/ui/button";
 import InputTextConfirm from "@/components/ui/input-text-confirm";
 import { Layers, SquareMousePointer } from "lucide-react";
+import { useScopedI18n } from "@/locales/client";
 
 // 1) Import Shadcn tooltip components
 import {
@@ -14,6 +15,7 @@ import {
 } from "@/components/ui/tooltip";
 
 const MapRoiControls = () => {
+  const t = useScopedI18n("map.roiControls");
   const activeDrawingMode = useButtonsStore((state) => state.activeDrawingMode);
   const setDrawingMode = useButtonsStore((state) => state.setDrawingMode);
   const toggleBasemap = useButtonsStore((state) => state.toggleBasemap);
@@ -36,8 +38,8 @@ const MapRoiControls = () => {
   // 2) Decide on tooltip text for the “polygon” button
   const polygonButtonTooltip =
     activeDrawingMode === "draw_polygon"
-      ? "Click to cancel"
-      : "Select a location on the map";
+      ? t('tooltips.drawPolygon.active')
+      : t('tooltips.drawPolygon.inactive');
 
   return (
     <div className="flex justify-center items-center gap-4 bg-foreground/30 bg-opacity-60 w-fit p-2 h-fit rounded-2xl">
@@ -46,7 +48,7 @@ const MapRoiControls = () => {
           isOpen={isSelectRoiNameOpen}
           onClose={() => setIsSelectRoiNameOpen(false)}
           onSubmit={handleRoiFinalize}
-          title="Enter ROI Name"
+          title={t('roiNameDialog.title')}
         />
       )}
 
@@ -57,7 +59,7 @@ const MapRoiControls = () => {
           className="font-semibold text-gray-800"
           onClick={handleRoiConfirm}
         >
-          Finalize ROI
+          {t('finalizeRoi')}
         </Button>
       )}
 
@@ -91,7 +93,7 @@ const MapRoiControls = () => {
             <Layers className="text-foreground" />
           </Button>
         </TooltipTrigger>
-        <TooltipContent>Toggle basemap</TooltipContent>
+        <TooltipContent>{t('tooltips.toggleBasemap')}</TooltipContent>
       </Tooltip>
     </div>
   );

@@ -17,8 +17,10 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useScopedI18n } from "@/locales/client";
 
 const MapCustomControls = () => {
+  const t = useScopedI18n("mapControls.tooltips");
   const activeDrawingMode = useButtonsStore((state) => state.activeDrawingMode);
   const setDrawingMode = useButtonsStore((state) => state.setDrawingMode);
   const toggleMapLayersPanel = useMapDisplayStore(
@@ -34,7 +36,7 @@ const MapCustomControls = () => {
     {
       id: "toggle-layers-panel",
       onClick: toggleMapLayersPanel,
-      tooltip: "Toggle layers panel",
+      tooltip: t('layersPanel'),
       icon: <Menu className="text-foreground" />,
       active: false,
     },
@@ -43,8 +45,8 @@ const MapCustomControls = () => {
       onClick: () => setDrawingMode("draw_point"),
       tooltip:
         activeDrawingMode === "draw_point"
-          ? "Click to cancel"
-          : "Select a location on the map",
+          ? t('drawPoint.active')
+          : t('drawPoint.inactive'),
       icon: <MousePointerClick className="text-foreground" />,
       active: activeDrawingMode === "draw_point",
     },
@@ -53,29 +55,29 @@ const MapCustomControls = () => {
       onClick: () => setDrawingMode("draw_polygon"),
       tooltip:
         activeDrawingMode === "draw_polygon"
-          ? "Click to cancel"
-          : "Draw a polygon on the map",
+          ? t('drawPolygon.active')
+          : t('drawPolygon.inactive'),
       icon: <SquareMousePointer className="text-foreground" />,
       active: activeDrawingMode === "draw_polygon",
     },
     {
       id: "toggle-basemaps",
       onClick: toggleBasemap,
-      tooltip: "Toggle basemap",
+      tooltip: t('basemap'),
       icon: <Layers className="text-foreground" />,
       active: false,
     },
     {
       id: "toggle-table",
       onClick: toggleTable,
-      tooltip: "Attribute table",
+      tooltip: t('attributeTable'),
       icon: <TableIcon className="text-foreground" />,
       active: false,
     },
     {
       id: "toggle-chart-panel",
       onClick: toggleMapChartPanel,
-      tooltip: "Toggle chart panel",
+      tooltip: t('chartPanel'),
       icon: <BarChart3 className="text-foreground" />,
       active: false,
     },

@@ -21,8 +21,10 @@ import AppSettings from "./app-setttings";
 import UserProfile from "@/features/user-profile/components/user-profile-modal";
 import { resetChatStores } from "@/utils/reset-chat-stores";
 import { FeedbackFloating } from "../feedback";
+import { useScopedI18n } from "@/locales/client";
 
 const MainSidebar = () => {
+  const t = useScopedI18n("sidebar");
   const setPageToOpen = useSidebarButtonStores((state) => state.setPageToOpen);
   const pageToOpen = useSidebarButtonStores((state) => state.pageToOpen);
 
@@ -71,30 +73,30 @@ const MainSidebar = () => {
         <nav className="flex-grow px-4 py-6 space-y-5 pt-14 text-sm font-normal">
           <button
             className={getButtonClasses(Pages.NewChat, "mb-10")}
-            data-tooltip-content="Start a new session"
+            data-tooltip-content={t('tooltips.newSession')}
             data-tooltip-id="new-session"
             onClick={() => handleOpenPage(Pages.NewChat)}
           >
             <IconEdit stroke={1.5} className="h-7 w-7 flex-shrink-0" />
             {!isSidebarCollapsed && (
-              <span className="whitespace-nowrap">New Session</span>
+              <span className="whitespace-nowrap">{t('newSession')}</span>
             )}
           </button>
 
           <button
             className={getButtonClasses(Pages.ChatHistory)}
-            data-tooltip-content="View session history"
+            data-tooltip-content={t('tooltips.sessionHistory')}
             data-tooltip-id="session-history"
             onClick={() => handleOpenPage(Pages.ChatHistory)}
           >
             <IconBook stroke={1.5} className="h-7 w-7 flex-shrink-0" />
             {!isSidebarCollapsed && (
-              <span className="whitespace-nowrap">Session History</span>
+              <span className="whitespace-nowrap">{t('sessionHistory')}</span>
             )}
           </button>
           <button
             className={getButtonClasses(Pages.KnowledgeBase)}
-            data-tooltip-content="Manage knowledge base documents"
+            data-tooltip-content={t('tooltips.knowledgeBase')}
             data-tooltip-id="knowledge-base"
             onClick={() => handleOpenPage(Pages.KnowledgeBase)}
           >
@@ -103,13 +105,13 @@ const MainSidebar = () => {
               className="h-7 w-7 flex-shrink-0"
             />
             {!isSidebarCollapsed && (
-              <span className="whitespace-nowrap">Knowledge Base</span>
+              <span className="whitespace-nowrap">{t('knowledgeBase')}</span>
             )}
           </button>
 
           <button
             className={getButtonClasses(Pages.Integrations)}
-            data-tooltip-content="Manage integrations"
+            data-tooltip-content={t('tooltips.integrations')}
             data-tooltip-id="integrations"
             onClick={() => handleOpenPage(Pages.Integrations)}
           >
@@ -118,7 +120,7 @@ const MainSidebar = () => {
               className="h-7 w-7 flex-shrink-0"
             />
             {!isSidebarCollapsed && (
-              <span className="whitespace-nowrap">Integrations</span>
+              <span className="whitespace-nowrap">{t('integrations')}</span>
             )}
           </button>
 
@@ -126,11 +128,11 @@ const MainSidebar = () => {
           <button
             onClick={() => setIsFeedbackOpen(true)}
             className={getButtonClasses(Pages.NewChat, "mb-3 translate-y-10")}
-            data-tooltip-content="Send feedback"
+            data-tooltip-content={t('tooltips.feedback')}
             data-tooltip-id="feedback"
           >
             <IconMessage stroke={1.5} className="h-7 w-7 flex-shrink-0" />
-            {!isSidebarCollapsed && <span>Feedback</span>}
+            {!isSidebarCollapsed && <span>{t('feedback')}</span>}
           </button>
         </nav>
 
@@ -148,7 +150,7 @@ const MainSidebar = () => {
             className={`flex items-center text-gray-100 px-3 py-2 gap-4 w-full rounded-xl hover:bg-muted dark:hover:bg-muted-foreground/20 hover:text-foreground ${
               isSidebarCollapsed ? "justify-center" : "justify-start"
             }`}
-            data-tooltip-content="Toggle sidebar"
+            data-tooltip-content={t('tooltips.toggleSidebar')}
             data-tooltip-id="toggle-sidebar"
           >
             <div>
@@ -164,7 +166,7 @@ const MainSidebar = () => {
                 />
               )}
             </div>
-            {!isSidebarCollapsed && <span>Collapse</span>}
+            {!isSidebarCollapsed && <span>{t('collapse')}</span>}
           </div>
         </div>
 

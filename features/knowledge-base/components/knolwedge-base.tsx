@@ -23,12 +23,14 @@ import FileUploadModal from "@/features/ui/modals/file-upload-modal";
 import { IconPlus, IconSearch } from "@tabler/icons-react";
 import { useUserStore } from "@/stores/use-user-profile-store";
 import MaxDocsAlertDialog from "./max-docs-alert-dialog";
+import { useScopedI18n } from "@/locales/client";
 
 interface KnowledgeBaseProps {
   initialDocuments: DocumentFile[];
 }
 
 const KnowledgeBase = ({ initialDocuments }: KnowledgeBaseProps) => {
+  const t = useScopedI18n("knowledgeBase");
   const isSidebarCollapsed = useButtonsStore(
     (state) => state.isSidebarCollapsed
   );
@@ -43,7 +45,7 @@ const KnowledgeBase = ({ initialDocuments }: KnowledgeBaseProps) => {
   const maxDocs = useUserStore((state) => state.maxDocs);
 
   const [folders, setFolders] = useState<any>([
-    { id: "all-documents", name: "All Documents" },
+    { id: "all-documents", name: t('folders.allDocuments') },
   ]);
   const [currentFolder, setCurrentFolder] = useState<any>(null);
   const [documents, setDocuments] = useState(initialDocuments);
@@ -117,10 +119,10 @@ const KnowledgeBase = ({ initialDocuments }: KnowledgeBaseProps) => {
 
     // 3. Combine them with the "All Documents" folder
     setFolders([
-      { id: "all-documents", name: "All Documents" },
+      { id: "all-documents", name: t('folders.allDocuments') },
       ...dynamicFolders,
     ]);
-  }, [documents]);
+  }, [documents, t]);
 
   // Close any open "folder action" menu if user clicks outside
   useEffect(() => {
@@ -155,9 +157,9 @@ const KnowledgeBase = ({ initialDocuments }: KnowledgeBaseProps) => {
       } as React.ChangeEvent<HTMLInputElement>);
 
       router.refresh();
-      setToastMessage("Document uploaded successfully", "success");
+      setToastMessage(t('messages.uploadSuccess'), "success");
     } catch (error: any) {
-      setToastMessage("Error processing files", "error");
+      setToastMessage(t('messages.uploadError'), "error");
     }
   };
 
@@ -192,7 +194,7 @@ const KnowledgeBase = ({ initialDocuments }: KnowledgeBaseProps) => {
 
     if (deleteSuccess) {
       router.refresh();
-      setToastMessage("Document deleted successfully", "success");
+      setToastMessage(t('messages.deleteSuccess'), "success");
       setDocuments(documents.filter((doc: any) => doc.id !== docToDelete));
     } else {
       setToastMessage(deleteSuccessMessage, "error");
@@ -235,15 +237,14 @@ const KnowledgeBase = ({ initialDocuments }: KnowledgeBaseProps) => {
   // Render
   // --------------------
   if (!folders || !documents) {
-    return <div>Loading...</div>;
+    return <div>{t('loading')}</div>;
   }
 
   return (
     <>
       <div
-        className={`flex h-screen text-gray-800 overflow-hidden flex-grow transition-all duration-300 ${
-          isSidebarCollapsed ? "ml-20" : "ml-64"
-        }`}
+        className={`flex h-screen text-gray-800 overflow-hidden flex-grow transition-all duration-300 ${isSidebarCollapsed ? "ml-20" : "ml-64"
+          }`}
       >
         {/* SIDEBAR */}
         <Sidebar
@@ -260,18 +261,17 @@ const KnowledgeBase = ({ initialDocuments }: KnowledgeBaseProps) => {
         <div className="flex-grow p-6">
           <div className="mb-6">
             <h1 className="text-2xl text-primary font-bold mb-2">
-              {currentFolder ? currentFolder.name : "All Documents"}
+              {currentFolder ? currentFolder.name : t('title')}
             </h1>
             <p className="text-muted-foreground text-sm mb-4">
-              Here you can add documents that you want your AI Assistants to
-              access across the app.
+              {t('description')}
             </p>
 
             <div className="flex items-center">
               <div className="relative w-full max-w-md">
                 <Input
                   type="text"
-                  placeholder="Search"
+                  placeholder={t('search')}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="pl-10"
@@ -288,7 +288,7 @@ const KnowledgeBase = ({ initialDocuments }: KnowledgeBaseProps) => {
                 variant={"primary-blue"}
               >
                 <IconPlus size={16} className="inline-block mr-2" />
-                Add Document
+                {t('addDocument')}
               </Button>
             </div>
           </div>
@@ -325,7 +325,7 @@ const KnowledgeBase = ({ initialDocuments }: KnowledgeBaseProps) => {
           onFileSelect={handleFileSelect}
           isUploadComplete={isUploadComplete}
           setUploadComplete={setUploadComplete}
-          currentFolder={{ name: "Documents" }}
+          currentFolder={currentFolder || { id: "all-documents", name: t('folders.allDocuments') }}
           // acceptedFileTypes=".pdf, .doc, .docx, .txt"
           acceptedFileTypes=".pdf"
         />
@@ -343,9 +343,9 @@ const KnowledgeBase = ({ initialDocuments }: KnowledgeBaseProps) => {
         {/* DELETE CONFIRMATION MODAL */}
         <ConfirmationModal
           isOpen={isConfirmDeleteModalOpen}
-          title="Confirm Deletion"
-          message="Are you sure you want to delete this document? This action cannot be undone."
-          confirmText="Delete"
+          title={t('confirmDelete.title')}
+          message={t('confirmDelete.message')}
+          confirmText={t('confirmDelete.confirmButton')}
           onCancel={() => setIsConfirmDeleteModalOpen(false)}
           onConfirm={confirmDeleteDocument}
           isDeleting={isDeleteLoading}

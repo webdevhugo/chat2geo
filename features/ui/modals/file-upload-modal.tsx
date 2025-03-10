@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
+import { useScopedI18n } from "@/locales/client";
 
 interface Folder {
   name: string;
@@ -38,9 +39,10 @@ const FileUploadModal: React.FC<FileUploadModalProps> = ({
   isUploadComplete,
   setUploadComplete,
   acceptedFileTypes = ".pdf,.doc,.docx,.txt",
-  title = "Add New Document",
+  title,
   multiple = true,
 }) => {
+  const t = useScopedI18n("knowledgeBase.fileUpload");
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
 
   const createFileList = (files: File[]): FileList => {
@@ -94,17 +96,16 @@ const FileUploadModal: React.FC<FileUploadModalProps> = ({
     <Dialog open={isOpen} onOpenChange={handleCancel}>
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
-          <DialogTitle>{title}</DialogTitle>
+          <DialogTitle>{title || t('title')}</DialogTitle>
         </DialogHeader>
 
         {selectedFiles.length === 0 ? (
           <div
             {...getRootProps()}
             className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors
-              ${
-                isDragActive
-                  ? "border-primary bg-primary/5"
-                  : "border-border hover:border-primary/50"
+              ${isDragActive
+                ? "border-primary bg-primary/5"
+                : "border-border hover:border-primary/50"
               }`}
           >
             <input {...getInputProps()} />
@@ -113,14 +114,12 @@ const FileUploadModal: React.FC<FileUploadModalProps> = ({
               className="mx-auto text-muted-foreground mb-4"
             />
             <p className="text-sm text-muted-foreground mb-2">
-              {isDragActive
-                ? "Drop the files here..."
-                : "Drop your files here or click to upload"}
+              {isDragActive ? t('dragActive') : t('dragInactive')}
             </p>
             <p className="text-xs text-muted-foreground mb-4">
-              Supported format: PDF
+              {t('supportedFormat')}
             </p>
-            <Button variant="outline">Select Files</Button>
+            <Button variant="outline">{t('selectFiles')}</Button>
           </div>
         ) : (
           <ScrollArea className="h-[250px] w-full rounded-md border p-4">
@@ -142,15 +141,15 @@ const FileUploadModal: React.FC<FileUploadModalProps> = ({
         )}
 
         <div className="flex items-center gap-2 text-sm text-muted-foreground">
-          <span>Selected folder:</span>
+          <span>{t('selectedFolder')}</span>
           <Badge variant="outline" className="font-normal">
-            {currentFolder ? currentFolder.name : "All Documents"}
+            {currentFolder ? currentFolder.name : t('allDocuments')}
           </Badge>
         </div>
 
         <DialogFooter>
           <Button variant="ghost" size="sm" onClick={handleCancel}>
-            Cancel
+            {t('buttons.cancel')}
           </Button>
           {selectedFiles.length > 0 && (
             <Button
@@ -159,10 +158,9 @@ const FileUploadModal: React.FC<FileUploadModalProps> = ({
               size="sm"
             >
               {!isUploadComplete && <Loader2 className="mr-2 animate-spin" />}
-              Upload
               {multiple && selectedFiles.length > 1
-                ? ` (${selectedFiles.length} files)`
-                : ""}
+                ? t('buttons.uploadMultiple', { count: selectedFiles.length })
+                : t('buttons.upload')}
             </Button>
           )}
         </DialogFooter>

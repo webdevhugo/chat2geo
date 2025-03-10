@@ -9,12 +9,14 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useScopedI18n } from "@/locales/client";
 
 interface MapToolsDropupProps {
   onOpenAssetSrouces: () => void;
 }
 
 const MapToolsDropup = ({ onOpenAssetSrouces }: MapToolsDropupProps) => {
+  const t = useScopedI18n("chatInput.mapTools");
   const [isDropupOpen, setIsDropupOpen] = useState(false);
   const dropupRef = useRef<HTMLDivElement>(null);
 
@@ -47,7 +49,7 @@ const MapToolsDropup = ({ onOpenAssetSrouces }: MapToolsDropupProps) => {
           <div className="absolute bottom-full left-0 mb-2 bg-[#f4f4f4] dark:bg-secondary rounded-3xl shadow-lg p-2 w-full border border-stone-300 dark:border-stone-600">
             <div className="flex justify-between items-center p-4">
               <h2 className="text-md font-bold text-primary/80 ml-2">
-                Toolbox
+                {t('title')}
               </h2>
               <button
                 onClick={() => setIsDropupOpen(false)}
@@ -71,13 +73,12 @@ const MapToolsDropup = ({ onOpenAssetSrouces }: MapToolsDropupProps) => {
             >
               <IconBackpack
                 stroke={2}
-                className={`h-6 w-6 ${
-                  isDropupOpen ? "text-blue-600" : "text-primary"
-                }`}
+                className={`h-6 w-6 ${isDropupOpen ? "text-blue-600" : "text-primary"
+                  }`}
               />
             </button>
           </TooltipTrigger>
-          <TooltipContent side="top">View your toolbox</TooltipContent>
+          <TooltipContent side="top">{t('tooltip')}</TooltipContent>
         </Tooltip>
       </div>
     </TooltipProvider>

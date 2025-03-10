@@ -11,6 +11,7 @@ import useToastMessageStore from "@/stores/use-toast-message-store";
 import { generateUUID } from "@/features/chat/utils/general-utils";
 import { calculateGeometryArea } from "../../utils/geometry-utils";
 import { addRoiLayerToMap } from "../../utils/add-roi-layer-to-map";
+import { useScopedI18n } from "@/locales/client";
 
 interface UseRoiDrawingProps {
   map: Map | null;
@@ -29,6 +30,7 @@ export default function useRoiDrawing({
   drawRef,
   setSecondaryMapBadgeText,
 }: UseRoiDrawingProps) {
+  const t = useScopedI18n("map.roi");
   const [finalizedRoiGeometry, setFinalizedRoiGeometry] = useState<any | null>(
     null
   );
@@ -79,7 +81,7 @@ export default function useRoiDrawing({
       setFinalizedRoiGeometry(geometry);
 
       setSecondaryMapBadgeText(
-        `Size: ${calculateGeometryArea(geometry).toFixed(2)} km²`
+        t('size', { value: calculateGeometryArea(geometry).toFixed(2) })
       );
 
       // Switch mode to simple_select so user doesn’t keep drawing
@@ -169,7 +171,7 @@ export default function useRoiDrawing({
       }
     }
 
-    setToastMessage(`ROI "${roiName}" created successfully.`, "success");
+    setToastMessage(t('toast.created', { name: roiName }), "success");
     setIsRoiFinalized(true, "");
     setFinalizedRoiGeometry(null);
     setIsROIDrawingActive(false);

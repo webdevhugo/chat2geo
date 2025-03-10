@@ -12,6 +12,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { IndeterminateCheckbox } from "./indeterminate-checkbox";
 import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
+import { useScopedI18n } from "@/locales/client";
 
 interface ChatHistory {
   chatId: string;
@@ -36,6 +37,7 @@ const ChatHistoryTable: FC<ChatHistoryTableProps> = ({
   onToggleSelectAll,
   onDeleteSelectedClick,
 }) => {
+  const t = useScopedI18n("chatHistory.table");
   // Check if all chats are selected
   const allSelected = useMemo(
     () =>
@@ -74,7 +76,7 @@ const ChatHistoryTable: FC<ChatHistoryTableProps> = ({
 
             <TableHead className="text-sm font-semibold text-secondary-foreground">
               <div className="inline-flex items-center gap-4">
-                <span>Title</span>
+                <span>{t('columns.title')}</span>
                 {selectedChatIds.length > 0 && (
                   <Button
                     variant="destructive"
@@ -82,14 +84,14 @@ const ChatHistoryTable: FC<ChatHistoryTableProps> = ({
                     className="whitespace-nowrap"
                   >
                     <Trash2 className="mr-2 h-4 w-4" />
-                    Delete Selected ({selectedChatIds.length})
+                    {t('deleteSelected')} ({selectedChatIds.length})
                   </Button>
                 )}
               </div>
             </TableHead>
 
             <TableHead className="text-sm font-semibold text-secondary-foreground">
-              Created At
+              {t('columns.createdAt')}
             </TableHead>
           </TableRow>
         </TableHeader>

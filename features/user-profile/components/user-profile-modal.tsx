@@ -4,10 +4,11 @@ import React, { useEffect, useTransition } from "react";
 import { IconUserSquareRounded } from "@tabler/icons-react";
 import { useUserStore } from "@/stores/use-user-profile-store";
 import { useButtonsStore } from "@/stores/use-buttons-store";
-import { logout } from "@/app/(auth)/login/actions";
+import { logout } from "@/app/[locale]/(auth)/login/actions";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Loader2, User } from "lucide-react";
+import { useScopedI18n } from "@/locales/client";
 
 import {
   Dialog,
@@ -20,6 +21,7 @@ import {
 } from "@/components/ui/dialog";
 
 export default function UserProfile() {
+  const t = useScopedI18n("userProfile");
   const {
     userName,
     userEmail,
@@ -59,9 +61,8 @@ export default function UserProfile() {
         <DialogTrigger asChild>
           <div className="px-4 py-2 text-accent-foreground cursor-pointer text-sm font-normal">
             <div
-              className={`flex items-center px-3 py-2 gap-4 w-full rounded-xl text-gray-100 hover:bg-muted dark:hover:bg-muted-foreground/20 hover:text-foreground ${
-                isSidebarCollapsed ? "justify-center" : "justify-start"
-              }`}
+              className={`flex items-center px-3 py-2 gap-4 w-full rounded-xl text-gray-100 hover:bg-muted dark:hover:bg-muted-foreground/20 hover:text-foreground ${isSidebarCollapsed ? "justify-center" : "justify-start"
+                }`}
             >
               <button>
                 <IconUserSquareRounded
@@ -69,16 +70,16 @@ export default function UserProfile() {
                   className="h-7 w-7 flex-shrink-0"
                 />
               </button>
-              {!isSidebarCollapsed && <span>Profile</span>}
+              {!isSidebarCollapsed && <span>{t('profile')}</span>}
             </div>
           </div>
         </DialogTrigger>
 
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Your Profile</DialogTitle>
+            <DialogTitle>{t('title')}</DialogTitle>
             <DialogDescription>
-              View your account details and license information.
+              {t('description')}
             </DialogDescription>
           </DialogHeader>
 
@@ -102,7 +103,7 @@ export default function UserProfile() {
               {/* Role */}
               <div className="flex flex-col">
                 <Label className="mb-0.5 text-xs uppercase text-muted-foreground">
-                  Role
+                  {t('info.role')}
                 </Label>
                 <p className="text-sm font-medium">{userRole || "—"}</p>
               </div>
@@ -110,7 +111,7 @@ export default function UserProfile() {
               {/* Organization */}
               <div className="flex flex-col">
                 <Label className="mb-0.5 text-xs uppercase text-muted-foreground">
-                  Organization
+                  {t('info.organization')}
                 </Label>
                 <p className="text-sm font-medium">{userOrganization || "—"}</p>
               </div>
@@ -118,31 +119,31 @@ export default function UserProfile() {
               {/* License Start */}
               <div className="flex flex-col">
                 <Label className="mb-0.5 text-xs uppercase text-muted-foreground">
-                  License Start
+                  {t('info.licenseStart')}
                 </Label>
                 <p className="text-sm font-medium">
                   {licenseStartDate
                     ? licenseStartDate.split("T")[0]
-                    : "Not Available"}
+                    : t('notAvailable')}
                 </p>
               </div>
 
               {/* License End */}
               <div className="flex flex-col">
                 <Label className="mb-0.5 text-xs uppercase text-muted-foreground">
-                  License End
+                  {t('info.licenseEnd')}
                 </Label>
                 <p className="text-sm font-medium">
                   {licenseEndDate
                     ? licenseEndDate.split("T")[0]
-                    : "Not Available"}
+                    : t('notAvailable')}
                 </p>
               </div>
 
               {/* Requests Usage */}
               <div className="flex flex-col">
                 <Label className="mb-0.5 text-xs uppercase text-muted-foreground">
-                  Requests Used
+                  {t('info.requestsUsed')}
                 </Label>
                 <p className="text-sm font-medium">
                   {maxRequests > 0 ? `${usageRequests} / ${maxRequests}` : "—"}
@@ -152,7 +153,7 @@ export default function UserProfile() {
               {/* Docs Usage */}
               <div className="flex flex-col">
                 <Label className="mb-0.5 text-xs uppercase text-muted-foreground">
-                  Knowledge Base Docs
+                  {t('info.knowledgeBaseDocs')}
                 </Label>
                 <p className="text-sm font-medium">
                   {maxDocs > 0 ? `${usageDocs} / ${maxDocs}` : "—"}
@@ -168,10 +169,10 @@ export default function UserProfile() {
                 {isPending ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Logging out...
+                    {t('actions.loggingOut')}
                   </>
                 ) : (
-                  "Logout"
+                  t('actions.logout')
                 )}
               </Button>
             </form>

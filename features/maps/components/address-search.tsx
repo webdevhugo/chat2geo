@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/tooltip";
 import useZoomRequestStore from "../stores/use-map-zoom-request-store";
 import useToastMessageStore from "@/stores/use-toast-message-store";
+import { useScopedI18n } from "@/locales/client";
 
 interface GeocodeResponse {
   results: { geometry: any }[];
@@ -23,6 +24,7 @@ interface GeocodeResponse {
 }
 
 export default function AddressSearch() {
+  const t = useScopedI18n("addressSearch");
   const [address, setAddress] = useState("");
   const [suggestions, setSuggestions] = useState<
     google.maps.places.AutocompletePrediction[]
@@ -56,7 +58,7 @@ export default function AddressSearch() {
                 autocompleteService.current =
                   new window.google.maps.places.AutocompleteService();
               } else {
-                console.error("Google Maps JavaScript API not loaded.");
+                console.error(t('errors.scriptError.api'));
               }
             };
             document.head.appendChild(script);
@@ -65,7 +67,7 @@ export default function AddressSearch() {
               new window.google.maps.places.AutocompleteService();
           }
         } else {
-          console.error("Failed to load Google Maps script URL");
+          console.error(t('errors.scriptError.load'));
         }
       } catch (err) {
         console.error("Error fetching Google Maps script:", err);
@@ -130,10 +132,10 @@ export default function AddressSearch() {
         setZoomToAddressRequest(data.results[0].geometry.location);
         setOpen(false);
       } else {
-        setError(data.error || "Failed to geocode address.");
+        setError(data.error || t('errors.geocodeError'));
       }
     } catch (err) {
-      setError("An error occurred while fetching the geocode.");
+      setError(t('errors.fetchError'));
     }
     setLoading(false);
     setAddress("");
@@ -153,14 +155,14 @@ export default function AddressSearch() {
             </Button>
           </PopoverTrigger>
         </TooltipTrigger>
-        <TooltipContent>Search Address</TooltipContent>
+        <TooltipContent>{t('tooltip')}</TooltipContent>
       </Tooltip>
       <PopoverContent className="w-80">
         <div className="relative">
           <Input
             value={address}
             onChange={handleAddressChange}
-            placeholder="Enter an address"
+            placeholder={t('placeholder')}
             className="w-full pl-10"
           />
           <Button

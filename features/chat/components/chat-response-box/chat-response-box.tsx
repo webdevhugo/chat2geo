@@ -33,6 +33,7 @@ import {
   TooltipTrigger,
   TooltipContent,
 } from "@/components/ui/tooltip";
+import { useScopedI18n } from "@/locales/client";
 
 interface MessageCompletionState {
   isComplete: boolean;
@@ -44,6 +45,7 @@ interface ChatResponseBoxProps {
   initialMessages: any;
 }
 const ChatResponseBox = ({ chatId, initialMessages }: ChatResponseBoxProps) => {
+  const t = useScopedI18n("chat.response");
   const { mutate } = useSWRConfig();
   const selectedRoiGeometryInChat = useROIStore(
     (state) => state.selectedGeometryInChat
@@ -194,21 +196,25 @@ const ChatResponseBox = ({ chatId, initialMessages }: ChatResponseBoxProps) => {
     );
 
     if (userLimitReached?.reason) {
+      const errorMessage = userLimitReached.reason.includes("maximum request limit")
+        ? t('errors.usageLimit.maxRequests')
+        : t('errors.usageLimit.maxArea');
+
       useToastMessageStore
         .getState()
-        .setToastMessage(userLimitReached.reason, "error");
+        .setToastMessage(errorMessage, "error");
       return;
     }
     if (input.trim()) {
       const syntheticEvent = {
-        preventDefault: () => {},
+        preventDefault: () => { },
       } as React.FormEvent<HTMLFormElement>;
 
       setIsAutoScrollEnabled(true);
 
       handleSubmit(syntheticEvent);
     }
-  }, [input, handleSubmit]);
+  }, [input, handleSubmit, maxRequests, maxArea, selectedRoiGeometryInChat, usageRequests]);
 
   // Handle sending a message on Enter key press
   const handleKeyDown = useCallback(
@@ -604,9 +610,8 @@ const ChatResponseBox = ({ chatId, initialMessages }: ChatResponseBoxProps) => {
 
   return (
     <div
-      className={`flex-grow transition-all duration-300 ${
-        isSidebarCollapsed ? "ml-20" : "ml-64"
-      }`}
+      className={`flex-grow transition-all duration-300 ${isSidebarCollapsed ? "ml-20" : "ml-64"
+        }`}
     >
       <div
         ref={scrollContainerRef}
@@ -639,7 +644,7 @@ const ChatResponseBox = ({ chatId, initialMessages }: ChatResponseBoxProps) => {
                 />
               </button>
             </TooltipTrigger>
-            <TooltipContent side="left">Open Insights viewer</TooltipContent>
+            <TooltipContent side="left">{t('tooltips.openInsights')}</TooltipContent>
           </Tooltip>
           {/* Messages */}
           <div className="w-full" style={{ paddingBottom: `${200}px` }}>
@@ -655,11 +660,10 @@ const ChatResponseBox = ({ chatId, initialMessages }: ChatResponseBoxProps) => {
                 return (
                   <div className="flex w-full" key={item.key}>
                     <div
-                      className={`${
-                        item.data.role === "user"
+                      className={`${item.data.role === "user"
                           ? "justify-center w-full"
                           : "justify-center w-full"
-                      } flex mb-3`}
+                        } flex mb-3`}
                     >
                       <ChatMessage
                         key={item.key}

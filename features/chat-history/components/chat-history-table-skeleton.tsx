@@ -7,8 +7,10 @@ import {
   TableRow,
   TableCell,
 } from "@/components/ui/table";
+import { useScopedI18n } from "@/locales/client";
 
 const ChatHistoryTableSkeleton: FC = () => {
+  const t = useScopedI18n("chatHistory.table");
   // Create an array of 5 items to simulate multiple rows loading
   const rows = Array(5).fill(null);
 
@@ -19,10 +21,10 @@ const ChatHistoryTableSkeleton: FC = () => {
           {/* Matches the checkbox column */}
           <TableHead className="w-10 text-sm font-semibold text-secondary-foreground" />
           <TableHead className="text-sm font-semibold text-secondary-foreground">
-            Title
+            {t('columns.title')}
           </TableHead>
           <TableHead className="text-sm font-semibold text-secondary-foreground">
-            Created At
+            {t('columns.createdAt')}
           </TableHead>
         </TableRow>
       </TableHeader>

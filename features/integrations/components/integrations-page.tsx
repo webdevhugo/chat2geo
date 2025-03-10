@@ -8,8 +8,10 @@ import { handleArcGISAuth } from "@/utils/service-handlers/esri";
 import { useIntegrationStore } from "@/stores/use-integration-store";
 import useToastMessageStore from "@/stores/use-toast-message-store";
 import { useButtonsStore } from "@/stores/use-buttons-store";
+import { useScopedI18n } from "@/locales/client";
 
 const IntegrationsPage = () => {
+  const t = useScopedI18n("integrations");
   const services = useIntegrationStore((state) => state.services);
   const updateServiceStatus = useIntegrationStore(
     (state) => state.updateServiceStatus
@@ -22,7 +24,7 @@ const IntegrationsPage = () => {
   );
 
   const handleAddNew = () => {
-    console.log("Add new integration");
+    console.log(t('page.addNew'));
   };
 
   useEffect(() => {
@@ -32,10 +34,7 @@ const IntegrationsPage = () => {
       const { connectionStatus } = event.data;
       if (connectionStatus === "connected") {
         updateServiceStatus("arcgis", "connected");
-        setToastMessage(
-          "Successfully connected to Esri Feature Services",
-          "success"
-        );
+        setToastMessage(t('messages.connectSuccess'), "success");
       }
     };
 
@@ -53,7 +52,7 @@ const IntegrationsPage = () => {
   };
 
   const handleConfigure = (serviceId: string) => {
-    console.log("Configuring service:", serviceId);
+    console.log(t('page.configure', { serviceId }));
   };
 
   return (

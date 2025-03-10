@@ -6,6 +6,7 @@ import {
   IconPaperclip,
   IconPlayerStopFilled,
 } from "@tabler/icons-react";
+import { useScopedI18n } from "@/locales/client";
 
 import { Loader2 } from "lucide-react";
 
@@ -36,6 +37,7 @@ export const ChatInputButtons = ({
   inputValue,
   openFileDialog,
 }: ChatInputButtonsProps) => {
+  const t = useScopedI18n("chatInput.buttons");
   const [isAssetsModalOpen, setIsAssetsModalOpen] = useState(false);
 
   const onOpenAssetSrouces = () => {
@@ -58,7 +60,7 @@ export const ChatInputButtons = ({
               <IconPaperclip className="h-6 w-6 rotate-45 scale-x-[-1] text-primary antialiased" />
             </button>
           </TooltipTrigger>
-          <TooltipContent side="top">Attach files</TooltipContent>
+          <TooltipContent side="top">{t('attach')}</TooltipContent>
         </Tooltip>
 
         {/* Additional Dropup Buttons */}
@@ -82,7 +84,7 @@ export const ChatInputButtons = ({
                 />
               </button>
             </TooltipTrigger>
-            <TooltipContent side="top">Stop streaming</TooltipContent>
+            <TooltipContent side="top">{t('stop')}</TooltipContent>
           </Tooltip>
         ) : (
           <Tooltip>
@@ -103,7 +105,7 @@ export const ChatInputButtons = ({
                 />
               </button>
             </TooltipTrigger>
-            <TooltipContent side="top">Send message</TooltipContent>
+            <TooltipContent side="top">{t('send')}</TooltipContent>
           </Tooltip>
         )}
       </div>

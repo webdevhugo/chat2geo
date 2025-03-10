@@ -9,8 +9,10 @@ import useROIStore from "@/features/maps/stores/use-roi-store";
 import { Button } from "@/components/ui/button";
 import { MoveRight } from "lucide-react";
 import useMapLayersStore from "@/features/maps/stores/use-map-layer-store";
+import { useScopedI18n } from "@/locales/client";
 
 const ArtifactsSidebar = () => {
+  const t = useScopedI18n("artifacts");
   const isArtifactsSidebarOpen = useButtonsStore(
     (state) => state.isArtifactsSidebarOpen
   );
@@ -84,25 +86,24 @@ const ArtifactsSidebar = () => {
   return (
     <div
       className={`${!isArtifactsSidebarOpen ? "hidden" : ""}
-      fixed right-0 top-0 h-full ${
-        mapMaximizeRequested
+      fixed right-0 top-0 h-full ${mapMaximizeRequested
           ? isSidebarCollapsed
             ? "w-[calc(100vw-5rem)]"
             : "w-[calc(100vw-16rem)]"
           : "w-[45vw]"
-      } bg-background dark:bg-accent shadow-xl flex flex-col
+        } bg-background dark:bg-accent shadow-xl flex flex-col
       border-l border-stone-300 dark:border-stone-600 transform transition-transform duration-300 
       ease-in-out z-[2000]
     `}
     >
       <div className="flex items-center justify-between bg-secondary px-4 py-3 bg-opacity-10 border-b border-stone-300 dark:border-stone-600">
         <h2 className="text-md font-semibold text-foreground">
-          Insights Viewer
+          {t('title')}
         </h2>
         <Button
           onClick={handleToggleArtifactsSidebar}
           className="p-1"
-          aria-label="Close sidebar"
+          aria-label={t('closeButton')}
           variant="ghost"
           size={"icon"}
         >
@@ -117,12 +118,11 @@ const ArtifactsSidebar = () => {
           ) : (
             <>
               <div
-                className={`w-full h-full ${
-                  displayMapRequestedFromChatResponse ||
-                  displayRawMapRequestedFromInsightsViewerIcon
+                className={`w-full h-full ${displayMapRequestedFromChatResponse ||
+                    displayRawMapRequestedFromInsightsViewerIcon
                     ? "block"
                     : "hidden"
-                }`}
+                  }`}
               >
                 <MapContainer />
               </div>

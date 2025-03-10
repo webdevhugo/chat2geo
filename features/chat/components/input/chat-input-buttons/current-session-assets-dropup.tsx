@@ -7,7 +7,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-
+import { useScopedI18n } from "@/locales/client";
 import { useAttachmentStore } from "@/features/chat/stores/use-attachments-store";
 import useROIStore from "@/features/maps/stores/use-roi-store";
 import { Separator } from "@/components/ui/separator";
@@ -21,6 +21,7 @@ interface Attachment {
 }
 
 const CurrentSessionAssetsDropup = () => {
+  const t = useScopedI18n("chatInput.sessionAssets");
   const [isDropupOpen, setIsDropupOpen] = useState(false);
   const attachments = useAttachmentStore((state) => state.attachments);
   const roiGeometries = useROIStore((state) => state.roiGeometries);
@@ -89,7 +90,7 @@ const CurrentSessionAssetsDropup = () => {
 
     return (
       <div className="mt-4 bg-accent/40 p-3 rounded-xl">
-        <h3 className="text-sm font-bold mb-2 text-primary/80">ROI Layers</h3>
+        <h3 className="text-sm font-bold mb-2 text-primary/80">{t('sections.roi.title')}</h3>
         <div className="space-y-2 w-fit">
           {uniqueROIs.map((roi: ROIGeometry) => (
             <div
@@ -117,24 +118,22 @@ const CurrentSessionAssetsDropup = () => {
         <Tooltip>
           <TooltipTrigger asChild>
             <button
-              className={`absolute ml-2 left-20 bottom-5 z-[1000] ${
-                attachments.length === 0 && roiGeometries.length === 0
+              className={`absolute ml-2 left-20 bottom-5 z-[1000] ${attachments.length === 0 && roiGeometries.length === 0
                   ? "text-muted-foreground"
                   : "text-primary hover:text-accent"
-              }`}
+                }`}
               onClick={handleToggleDropup}
               disabled={attachments.length === 0 && roiGeometries.length === 0}
             >
               <div>
                 <IconServer
                   stroke={2}
-                  className={`h-6 w-6 ${
-                    numberOfSessionAssets === 0
+                  className={`h-6 w-6 ${numberOfSessionAssets === 0
                       ? "text-muted-foreground"
                       : isDropupOpen
-                      ? "text-blue-600"
-                      : "text-primary"
-                  }`}
+                        ? "text-blue-600"
+                        : "text-primary"
+                    }`}
                 />
                 {numberOfSessionAssets > 0 && (
                   <span className="absolute -top-[6px] -right-[5px] h-4 min-w-4 flex items-center justify-center leading-none text-xs font-semibold text-white bg-blue-500 rounded-full">
@@ -146,8 +145,8 @@ const CurrentSessionAssetsDropup = () => {
           </TooltipTrigger>
           <TooltipContent side="top">
             {attachments.length === 0 && roiGeometries.length === 0
-              ? "No assets added"
-              : "View your session assets"}
+              ? t('tooltips.noAssets')
+              : t('tooltips.viewAssets')}
           </TooltipContent>
         </Tooltip>
         {isDropupOpen && (
@@ -162,7 +161,7 @@ const CurrentSessionAssetsDropup = () => {
             >
               <div className="flex justify-between items-center mb-4">
                 <h2 className="text-md font-bold text-primary/80">
-                  Session Assets
+                  {t('title')}
                 </h2>
                 <button
                   onClick={handleCloseDropup}
@@ -174,7 +173,7 @@ const CurrentSessionAssetsDropup = () => {
               <Separator />
               {filteredAttachments.length > 0 && (
                 <div>
-                  <h3 className="text-sm font-semibold mb-2">Attachments</h3>
+                  <h3 className="text-sm font-semibold mb-2">{t('sections.attachments.title')}</h3>
                   <div className="space-y-2">
                     {filteredAttachments.map((attachment: Attachment) => (
                       <div

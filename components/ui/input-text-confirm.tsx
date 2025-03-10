@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Button } from "./button";
 import { Input } from "@/components/ui/input";
+import { useScopedI18n } from "@/locales/client";
 
 interface InputTextConfirmProps {
   isOpen: boolean;
@@ -16,9 +17,10 @@ const InputTextConfirm: React.FC<InputTextConfirmProps> = ({
   onClose,
   onSubmit,
   title,
-  placeholder = "Enter ROI name...",
+  placeholder,
   initialValue = "",
 }) => {
+  const t = useScopedI18n("common");
   const [inputValue, setInputValue] = useState(initialValue);
   const popoverRef = useRef<HTMLDivElement>(null);
 
@@ -74,7 +76,7 @@ const InputTextConfirm: React.FC<InputTextConfirmProps> = ({
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
         onKeyDown={handleKeyDown}
-        placeholder={placeholder}
+        placeholder={placeholder || t('input.roiName.placeholder')}
       />
 
       <div className="flex justify-end space-x-2 pt-4">
@@ -84,10 +86,10 @@ const InputTextConfirm: React.FC<InputTextConfirmProps> = ({
           size="xs"
           className="text-foreground"
         >
-          Cancel
+          {t('actions.cancel')}
         </Button>
         <Button onClick={handleSubmit} variant="primary-blue" size="xs">
-          Confirm
+          {t('actions.confirm')}
         </Button>
       </div>
     </div>

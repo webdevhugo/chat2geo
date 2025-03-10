@@ -2,12 +2,14 @@ import { IconSquareRoundedPlus2 } from "@tabler/icons-react";
 import useROIStore from "@/features/maps/stores/use-roi-store";
 import useBadgeStore from "@/features/maps/stores/use-map-badge-store";
 import React from "react";
+import { useScopedI18n } from "@/locales/client";
 
 interface SelectRoiOnMapBtnProps {
   setIsDropupOpen: (isOpen: boolean) => void;
 }
 
 const SelectRoiOnMapBtn = ({ setIsDropupOpen }: SelectRoiOnMapBtnProps) => {
+  const t = useScopedI18n("chatInput.mapTools.buttons.selectRoi");
   const isROIDrawingActive = useROIStore((state) => state.isROIDrawingActive);
   const setIsROIDrawingActive = useROIStore(
     (state) => state.setIsROIDrawingActive
@@ -28,9 +30,9 @@ const SelectRoiOnMapBtn = ({ setIsDropupOpen }: SelectRoiOnMapBtnProps) => {
         <span className="flex items-start gap-2 antialiased">
           <IconSquareRoundedPlus2 stroke={2} size={20} className="mt-1" />
           <div className="flex flex-col">
-            <span className="text-sm font-semibold">Select ROI on map</span>
+            <span className="text-sm font-semibold">{t('title')}</span>
             <span className="text-sm text-muted-foreground">
-              Select Region of Interest on Map
+              {t('description')}
             </span>
           </div>
         </span>

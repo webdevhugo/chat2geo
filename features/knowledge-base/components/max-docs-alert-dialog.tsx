@@ -9,6 +9,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { useScopedI18n } from "@/locales/client";
 
 import { Button } from "@/components/ui/button";
 
@@ -26,18 +27,18 @@ export default function MaxDocsAlertDialog({
   onClose,
   maxDocs,
 }: MaxDocsAlertDialogProps) {
+  const t = useScopedI18n("knowledgeBase.maxDocsAlert");
   return (
     <AlertDialog open={isOpen} onOpenChange={onClose}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Maximum Documents Reached</AlertDialogTitle>
+          <AlertDialogTitle>{t('title')}</AlertDialogTitle>
           <AlertDialogDescription>
-            You have reached the maximum number of documents ({maxDocs}). Please
-            delete some documents to upload more.
+            {t('description', { count: maxDocs })}
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogAction onClick={onClose}>Ok</AlertDialogAction>
+          <AlertDialogAction onClick={onClose}>{t('button')}</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
