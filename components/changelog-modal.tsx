@@ -8,8 +8,10 @@ import {
 } from "@/components/ui/dialog";
 import ReactMarkdown from "react-markdown";
 import { changelog } from "@/lib/changelog";
+import { useScopedI18n } from "@/locales/client";
 
 export default function ChangelogModal() {
+  const t = useScopedI18n("changelog");
   const [hasMounted, setHasMounted] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -45,13 +47,14 @@ export default function ChangelogModal() {
       <DialogContent className="max-w-xl">
         <DialogHeader>
           <DialogTitle>
-            Chat2Geo Updated (Version {latestEntry.version}) -{" "}
-            {latestEntry.date}
+            {t('title', { version: latestEntry.version, date: latestEntry.date })}
           </DialogTitle>
         </DialogHeader>
 
         <ReactMarkdown className="prose dark:prose-invert max-w-none">
-          {latestEntry.content}
+          {t('useContent') === 'true'
+            ? t('content')
+            : latestEntry.content}
         </ReactMarkdown>
       </DialogContent>
     </Dialog>

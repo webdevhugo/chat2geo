@@ -548,5 +548,22 @@ export default {
                 }
             }
         }
+    },
+    changelog: {
+        title: "Chat2Geo Updated (Version {version}) - {date}",
+        useContent: "true",
+        content: `
+#### New Features
+- Added a capability to load any dataset on Google Earth Engine (GEE).
+- Add new database query function to find GEE datasets based on user\\'s search query (given by the LLM).
+- Added a web scraper function to retrieve information on the dataset selected for the user.
+
+#### Improvements
+- Updated the Vercel AI SDK to have better streaming experience.
+- Cleaned up the codebase to improve clarity.
+
+#### Bug Fixes
+- Fixed some minor bugs.
+`
     }
 } as const

@@ -549,5 +549,22 @@ export default {
                 }
             }
         }
+    },
+    changelog: {
+        title: "Chat2Geo 已更新 (版本 {version}) - {date}",
+        useContent: "true",
+        content: `
+#### 新功能
+- 添加了加载谷歌地球引擎(GEE)上任何数据集的功能。
+- 添加了新的数据库查询功能，可根据用户的搜索查询(由 LLM 提供)查找 GEE 数据集。
+- 添加了网页抓取功能，以检索用户所选数据集的信息。
+
+#### 改进
+- 更新了 Vercel AI SDK 以获得更好的流式体验。
+- 清理了代码库以提高清晰度。
+
+#### 错误修复
+- 修复了一些小错误。
+`
     }
 } as const
