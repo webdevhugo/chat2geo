@@ -25,12 +25,11 @@ export const metadata = {
 
 export default function RootLayout({
   children,
-  params,
-}: Readonly<{
+  params: { locale },
+}: {
   children: React.ReactNode;
   params: { locale: string }
-}>) {
-  const { locale } = params;
+}) {
   return (
     <html lang={locale} suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} font-sans`}>
