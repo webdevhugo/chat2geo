@@ -29,11 +29,12 @@ export const metadata = {
 
 export default async function RootLayout({
   children,
-  params: { locale },
+  params,
 }: {
   children: React.ReactNode;
-  params: { locale: string }
+  params: Promise<{ locale: string }>;
 }) {
+  const { locale } = await params;
   const supabase = await createClient();
   const { data: authResults, error } = await supabase.auth.getUser();
   if (error || !authResults?.user) {
