@@ -59,6 +59,31 @@ export default {
         continueWithGoogle: "Continue with Google",
         continueWithGithub: "Continue with Github"
     },
+    resetPassword: {
+        title: 'Reset your password',
+        description: 'Enter your email address and we\'ll send you a link to reset your password',
+        email: 'Email',
+        emailPlaceholder: 'name@example.com',
+        sendLink: 'Send Reset Link',
+        backToLogin: 'Back to login',
+        errorLabel: 'Error:',
+        testimonial: 'Geospatial insights at scale, just a prompt away',
+        termsText: 'By continuing, you agree to our',
+        termsLink: 'Terms of Service',
+        andText: 'and',
+        privacyLink: 'Privacy Policy',
+        success: {
+            title: 'Reset your password',
+            description: 'Enter your email address and we\'ll send you a link to reset your password',
+            emailSentMessage: 'If an account exists with the email {email}, we\'ve sent a password reset link. Please check your email (including spam folder) and follow the instructions.',
+            backToLogin: 'Back to Login',
+            testimonial: 'Geospatial insights at scale, just a prompt away',
+            termsText: 'By continuing, you agree to our',
+            termsLink: 'Terms of Service',
+            andText: 'and',
+            privacyLink: 'Privacy Policy'
+        },
+    },
     settings: {
         title: "Settings",
         appearance: {

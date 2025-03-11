@@ -59,6 +59,31 @@ export default {
         continueWithGoogle: "使用 Google 账号登录",
         continueWithGithub: "使用 Github 账号登录"
     },
+    resetPassword: {
+        title: '重置密码',
+        description: '输入您的邮箱地址，我们将向您发送重置密码的链接',
+        email: '邮箱',
+        emailPlaceholder: 'name@example.com',
+        sendLink: '发送重置链接',
+        backToLogin: '返回登录',
+        errorLabel: '错误：',
+        testimonial: '地理空间分析，一触即发',
+        termsText: '继续即表示您同意我们的',
+        termsLink: '服务条款',
+        andText: '和',
+        privacyLink: '隐私政策',
+        success: {
+            title: '邮件已发送',
+            description: '请查收密码重置邮件',
+            emailSentMessage: '我们已向 {email} 发送了密码重置链接。\n请检查您的收件箱和垃圾邮件文件夹。',
+            backToLogin: '返回登录',
+            testimonial: '地理空间分析，一触即发',
+            termsText: '继续即表示您同意我们的',
+            termsLink: '服务条款',
+            andText: '和',
+            privacyLink: '隐私政策'
+        },
+    },
     settings: {
         title: "设置",
         appearance: {
