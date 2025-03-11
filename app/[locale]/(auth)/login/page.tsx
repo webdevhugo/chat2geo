@@ -9,6 +9,8 @@ import { login } from "@/app/[locale]/(auth)/login/actions";
 import { useUserStore } from "@/stores/use-user-profile-store";
 import PrivacyPolicy from "@/components/notices/privacy-policy";
 import TermsOfService from "@/components/notices/terms-of-services";
+import { GithubSignIn } from "@/components/github-sign-in";
+import { GoogleSignIn } from "@/components/google-sign-in";
 import { useScopedI18n } from '@/locales/client'
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -99,8 +101,13 @@ export default function Login() {
               </div>
 
               {/* Password Field */}
-              <div className="flex flex-col space-y-1">
-                <Label htmlFor="password">{t('password')}</Label>
+              <div className="space-y-2">
+                <div className="flex justify-between items-center">
+                  <Label htmlFor="password">{t('password')}</Label>
+                  <Link href="/forgot-password" className="text-sm text-primary hover:underline">
+                    {t('forgotPassword')}
+                  </Link>
+                </div>
                 <Input
                   id="password"
                   name="password"
@@ -128,6 +135,28 @@ export default function Login() {
                 {t('signInButton')}
               </Button>
             </form>
+
+            <div className="text-center">
+              <p className="text-sm text-muted-foreground">
+                {t('noAccount')} <Link href="/signup" className="text-primary hover:underline">{t('signUp')}</Link>
+              </p>
+            </div>
+
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-gray-300 dark:border-gray-700"></div>
+              </div>
+              <div className="relative flex justify-center text-xs uppercase">
+                <span className="bg-background px-2 text-muted-foreground">
+                  {t('orContinueWith')}
+                </span>
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              <GoogleSignIn />
+              <GithubSignIn />
+            </div>
 
             <p className="px-8 text-center text-sm text-muted-foreground">
               {t('termsText')}{" "}
