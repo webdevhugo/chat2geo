@@ -7,32 +7,29 @@ export async function GET(request: NextRequest) {
     const code = request.nextUrl.searchParams.get("code");
     const returnTo = request.nextUrl.searchParams.get("return_to");
     
-    // 确保 baseUrl 有值，并添加类型断言
-    const baseUrl = process.env.BASE_URL as string;
+    // 从请求中获取实际的 origin
+    const origin = request.headers.get('origin') || request.nextUrl.origin;
     
-    if (!baseUrl) {
-      throw new Error('BASE_URL environment variable is not defined');
-    }
-
     if (!code) {
-      return NextResponse.redirect(new URL('/login', baseUrl));
+      return NextResponse.redirect(new URL('/login', origin));
     }
 
     const supabase = await createClient();
     const { error } = await supabase.auth.exchangeCodeForSession(code);
 
     if (error) {
-      return NextResponse.redirect(new URL(`/login?error=${error.message}`, baseUrl));
+      return NextResponse.redirect(new URL(`/login?error=${error.message}`, origin));
     }
 
     if (returnTo) {
-      return NextResponse.redirect(new URL(`/${returnTo}`, baseUrl));
+      return NextResponse.redirect(new URL(`/${returnTo}`, origin));
     }
 
-    return NextResponse.redirect(baseUrl);
+    // 重定向到首页
+    return NextResponse.redirect(origin);
   } catch (error) {
     console.error('Auth callback error:', error);
-    const fallbackUrl = process.env.BASE_URL || 'http://localhost:3000';
-    return NextResponse.redirect(new URL('/login?error=unknown_error', fallbackUrl));
+    const origin = request.headers.get('origin') || request.nextUrl.origin;
+    return NextResponse.redirect(new URL('/login?error=unknown_error', origin));
   }
 }
