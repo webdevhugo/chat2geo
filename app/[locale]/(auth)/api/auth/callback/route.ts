@@ -7,26 +7,32 @@ export async function GET(request: NextRequest) {
     const code = request.nextUrl.searchParams.get("code");
     const returnTo = request.nextUrl.searchParams.get("return_to");
     
-    if (!code) {
-      return NextResponse.redirect(`${request.nextUrl.origin}/login?error=no_code`);
+    // 确保 baseUrl 有值，并添加类型断言
+    const baseUrl = process.env.BASE_URL as string;
+    
+    if (!baseUrl) {
+      throw new Error('BASE_URL environment variable is not defined');
     }
 
-    // 核心功能: 交换授权码获取会话
+    if (!code) {
+      return NextResponse.redirect(new URL('/login', baseUrl));
+    }
+
     const supabase = await createClient();
     const { error } = await supabase.auth.exchangeCodeForSession(code);
 
     if (error) {
-      return NextResponse.redirect(`${request.nextUrl.origin}/login?error=${error.message}`);
+      return NextResponse.redirect(new URL(`/login?error=${error.message}`, baseUrl));
     }
 
-    // 处理重定向
     if (returnTo) {
-      return NextResponse.redirect(`${request.nextUrl.origin}/${returnTo}`);
+      return NextResponse.redirect(new URL(`/${returnTo}`, baseUrl));
     }
 
-    return NextResponse.redirect(request.nextUrl.origin);
+    return NextResponse.redirect(baseUrl);
   } catch (error) {
     console.error('Auth callback error:', error);
-    return NextResponse.redirect(`${request.nextUrl.origin}/login?error=unknown_error`);
+    const fallbackUrl = process.env.BASE_URL || 'http://localhost:3000';
+    return NextResponse.redirect(new URL('/login?error=unknown_error', fallbackUrl));
   }
 }
