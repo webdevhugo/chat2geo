@@ -43,7 +43,9 @@ export default async function RootLayout({
           >
             <Toaster />
             <ToastMessage />
-            {children}
+            <div className="relative flex min-h-screen">
+              <main className="flex-grow">{children}</main>
+            </div>
           </ThemeProvider>
         </I18nProviderClient>
         <Analytics />

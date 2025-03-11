@@ -83,6 +83,34 @@ export default {
             andText: '和',
             privacyLink: '隐私政策'
         },
+        confirm: {
+            title: '创建新密码',
+            description: '为您的账户输入新密码',
+            newPassword: '新密码',
+            confirmPassword: '确认新密码',
+            passwordRequirements: '密码必须至少8个字符，并包含大写字母、小写字母、数字和特殊字符的组合。',
+            resetButton: '重置密码',
+            errorLabel: '错误：',
+            successTitle: '密码重置成功',
+            successMessage: '您的密码已成功重置。现在可以使用新密码登录。',
+            loginButton: '前往登录',
+            testimonial: '地理空间分析，一触即发',
+            termsText: '继续即表示您同意我们的',
+            termsLink: '服务条款',
+            andText: '和',
+            privacyLink: '隐私政策',
+            loading: "验证中，请稍候...",
+            errors: {
+                passwordMismatch: '两次输入的密码不一致',
+                unknownError: '发生错误，请重试',
+                linkExpired: "重置密码链接已失效，请重新申请",
+                invalidLink: {
+                    title: "重置链接无效",
+                    message: "邮件链接已失效或已过期",
+                    button: "重新发送重置链接"
+                }
+            }
+        },
     },
     settings: {
         title: "设置",

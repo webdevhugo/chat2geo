@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useEffect } from "react";
 import { useScopedI18n } from '@/locales/client';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,6 +10,7 @@ import { Loader2, CheckCircle } from "lucide-react";
 import PrivacyPolicy from "@/components/notices/privacy-policy";
 import TermsOfService from "@/components/notices/terms-of-services";
 import { createClient } from "@/utils/supabase/client";
+import { useSearchParams } from "next/navigation";
 
 export default function ResetPassword() {
     const [error, setError] = useState<string | null>(null);
@@ -19,6 +20,21 @@ export default function ResetPassword() {
     const [isSuccess, setIsSuccess] = useState(false);
     const [sentEmail, setSentEmail] = useState<string>('');
     const t = useScopedI18n('resetPassword');
+    const searchParams = useSearchParams();
+
+    useEffect(() => {
+        // 处理 URL 中的错误参数
+        const urlError = searchParams.get('error');
+        const errorDescription = searchParams.get('error_description');
+        
+        if (urlError === 'expired') {
+            // 如果有错误描述，优先使用错误描述
+            setError(errorDescription || t('confirm.errors.linkExpired'));
+        } else if (urlError) {
+            // 处理其他类型的错误
+            setError(errorDescription || urlError);
+        }
+    }, [searchParams, t]);
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -30,7 +46,7 @@ export default function ResetPassword() {
         const supabase = createClient();
 
         const { error } = await supabase.auth.resetPasswordForEmail(email, {
-            redirectTo: `${window.location.origin}/auth/callback?next=/update-password`,
+            redirectTo: `${window.location.origin}/api/auth/callback?next=/reset-password/confirm`,
         });
 
         if (error) {
@@ -87,7 +103,6 @@ export default function ResetPassword() {
                                 <Button
                                     asChild
                                     className="w-full"
-                                    variant="default"
                                 >
                                     <Link href="/login">{t('success.backToLogin')}</Link>
                                 </Button>

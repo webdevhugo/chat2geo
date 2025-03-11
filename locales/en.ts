@@ -83,6 +83,34 @@ export default {
             andText: 'and',
             privacyLink: 'Privacy Policy'
         },
+        confirm: {
+            title: 'Create a new password',
+            description: 'Enter a new password for your account',
+            newPassword: 'New Password',
+            confirmPassword: 'Confirm New Password',
+            passwordRequirements: 'Password must be at least 8 characters and include a combination of uppercase, lowercase, numbers, and special characters.',
+            resetButton: 'Reset Password',
+            errorLabel: 'Error:',
+            successTitle: 'Password Reset Successfully',
+            successMessage: 'Your password has been reset successfully. You can now log in with your new password.',
+            loginButton: 'Go to Login',
+            testimonial: 'Geospatial insights at scale, just a prompt away',
+            termsText: 'By continuing, you agree to our',
+            termsLink: 'Terms of Service',
+            andText: 'and',
+            privacyLink: 'Privacy Policy',
+            loading: "Verifying, please wait...",
+            errors: {
+                passwordMismatch: 'Passwords do not match',
+                unknownError: 'An error occurred. Please try again.',
+                linkExpired: "Password reset link has expired, please request a new one",
+                invalidLink: {
+                    title: "Invalid reset link",
+                    message: "The reset link has expired or is invalid",
+                    button: "Resend reset link"
+                }
+            }
+        },
     },
     settings: {
         title: "Settings",
