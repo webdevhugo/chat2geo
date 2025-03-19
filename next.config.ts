@@ -1,6 +1,12 @@
 import type { NextConfig } from "next";
 import { version } from "./package.json";
 
+const isDev = process.env.NODE_ENV === "development";
+
+if (isDev) {
+  require("./proxy-setup");
+}
+
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   experimental: {
